@@ -5,22 +5,22 @@ The UDN project aims to provide decentralized and localhost-able infrastructure 
 # Contents
 
 - [How it works](#how-it-works)
-  - [Channels](#channels)
-  - [Scalability](#scalability)
-  - [Example](#example)
+    - [Channels](#channels)
+    - [Scalability](#scalability)
+    - [Example](#example)
 - [User's guide](#users-guide)
-  - [Getting Connected](#getting-connected)
-  - [Using Apps](#using-apps)
-  - [Getting Apps](#getting-apps)
+    - [Getting Connected](#getting-connected)
+    - [Using Apps](#using-apps)
+    - [Getting Apps](#getting-apps)
 - [Administrator's Guide](#administrators-guide)
-  - [Getting Started](#getting-started)
-  - [Configuration](#configuration)
-  - [TLS](#tls)
-  - [Connecting Multiple Servers](#connecting-multiple-servers)
+    - [Getting Started](#getting-started)
+    - [Configuration](#configuration)
+    - [TLS](#tls)
+    - [Connecting Multiple Servers](#connecting-multiple-servers)
 - [App Developer's Guide](#app-developers-guide)
-  - [Guidelines](#guidelines)
-  - [The Recommended Way](#the-recommended-way)
-  - [The Manual Way](#the-manual-way)
+    - [Guidelines](#guidelines)
+    - [The Recommended Way](#the-recommended-way)
+    - [The Manual Way](#the-manual-way)
 
 # How it works
 
@@ -40,14 +40,14 @@ Subscriptions and messages are handled by a server:
 
 ```md
 **Josh** --(subscribe to "my-channel")-> **Server**
-**Josh** <-(subscription confirmed   )-- **Server**
+**Josh** <-(subscription confirmed )-- **Server**
 
-**Bob**  --(subscribe to "my-channel")-> **Server**
-**Bob**  <-(subscription confirmed   )-- **Server**
+**Bob** --(subscribe to "my-channel")-> **Server**
+**Bob** <-(subscription confirmed )-- **Server**
 
-**Josh** --("hello" on "my-channel"  )-> **Server**
-**Josh** <-("hello" on "my-channel"  )-- **Server**
-**Bob**  <-("hello" on "my-channel"  )-- **Server**
+**Josh** --("hello" on "my-channel" )-> **Server**
+**Josh** <-("hello" on "my-channel" )-- **Server**
+**Bob** <-("hello" on "my-channel" )-- **Server**
 ```
 
 ## Scalability
@@ -79,36 +79,36 @@ Then, John will send his messages on both "s1-and-s2" and "car-warranty". As alw
 # John and Bob subscribe:
 
 **John** --(subscribe to "car-warranty")-> **S1**
-**John** <-(subscription confirmed     )-- **S1**
+**John** <-(subscription confirmed )-- **S1**
 
-**Bob**  --(subscribe to "car-warranty")-> **S2**
-**Bob**  <-(subscription confirmed     )-- **S2**
+**Bob** --(subscribe to "car-warranty")-> **S2**
+**Bob** <-(subscription confirmed )-- **S2**
 
 ---
 
 # The servers subscribe:
 
-**S1**   --(subscribe to "s1-and-s2"   )-> **S2**
-**S2**   --(subscribe to "s1-and-s2"   )-> **S1**
+**S1** --(subscribe to "s1-and-s2" )-> **S2**
+**S2** --(subscribe to "s1-and-s2" )-> **S1**
 
 ---
 
 # Sending the Message:
 
 John sends the message to his server
-**John** --("hello" on:                )-> **S1**
-           ( - "s1-and-s2"             )
-           ( - "car-warranty"          )
+**John** --("hello" on: )-> **S1**
+( - "s1-and-s2" )
+( - "car-warranty" )
 
 S2 subscribed to "s1-and-s2", so S1 sends this message to S2
-**S1**   --("hello" on:                )-> **S2**
-           ( - "s1-and-s2"             )
-           ( - "car-warranty"          )
+**S1** --("hello" on: )-> **S2**
+( - "s1-and-s2" )
+( - "car-warranty" )
 
 Bob subscribed to "car-warranty", so S2 sends this message to Bob
-**S2**   --("hello" on:                )-> **Bob**
-           ( - "s1-and-s2"             )
-           ( - "car-warranty"          )
+**S2** --("hello" on: )-> **Bob**
+( - "s1-and-s2" )
+( - "car-warranty" )
 ```
 
 This requires John to know of "s1-and-s2" and, obviously, Bob to subscribe to "car-warranty". Jane and Alice could agree on their own primary channel and use "s1-and-s2" just like John did.
@@ -139,16 +139,16 @@ As you can see, there are many ways to connect multiple servers and communicate 
 - `http://` or `https://` (the secure variant) are protocols to request data and receive a single response
 - To send messages, apps use so-called WebSockets instead. Their protocol is `ws://` or `wss://` (the secure variant)
 - You will need to **replace `http` with `ws`**:
-  - `http://192.168.0.100:3000` -> `ws://192.168.0.100:3000`
-  - `https://192.168.0.200:3000` -> `wss://192.168.0.200:3000`
+    - `http://192.168.0.100:3000` -> `ws://192.168.0.100:3000`
+    - `https://192.168.0.200:3000` -> `wss://192.168.0.200:3000`
 
 ## Getting Apps
 
 Anyone can develop apps for the UDN project. Examples of such apps are listed below. If you have developed an app for the UDN project and you want your app to be listed here, create an issue.
 
-| App Name | Description | Links |
-| -- | -- | -- |
-| Comms | Messenger for UDN | [more info](https://github.com/marlon-erler/udn-comms/) - [install](https://udn-comms.onrender.com/)
+| App Name | Description       | Links                                                                                                |
+| -------- | ----------------- | ---------------------------------------------------------------------------------------------------- |
+| Comms    | Messenger for UDN | [more info](https://github.com/marlon-erler/udn-comms/) - [install](https://udn-comms.onrender.com/) |
 
 ---
 

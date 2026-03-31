@@ -1,10 +1,10 @@
 {
-  "dependencies": {
-    "bloatless-react": "^1.2.6",
-    "esbuild": "latest",
-    "udn-frontend": "^1.0.6"
-  },
-  "scripts": {
-    "build": "esbuild src/index.tsx --bundle --outdir=dist"
-  }
+    "dependencies": {
+        "bloatless-react": "^1.2.6",
+        "esbuild": "latest",
+        "udn-frontend": "^1.0.6"
+    },
+    "scripts": {
+        "build": "esbuild src/index.tsx --bundle --outdir=dist"
+    }
 }

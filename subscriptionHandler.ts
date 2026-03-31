@@ -8,7 +8,7 @@ import Crypto from "crypto";
 import { WS } from "./index";
 
 export interface Subscriber {
-  send: (message: string) => void;
+  send: (message: string, compress?: boolean, id?: string) => void;
 }
 
 export class Mailbox implements Subscriber {
@@ -35,7 +35,7 @@ export class Mailbox implements Subscriber {
       {
         assignedMailboxId: this.id,
       },
-      ws
+      ws,
     );
   }
 
@@ -46,7 +46,7 @@ export class Mailbox implements Subscriber {
       {
         connectedMailboxId: this.id,
       },
-      this.ws
+      this.ws,
     );
   }
 
@@ -57,7 +57,7 @@ export class Mailbox implements Subscriber {
   }
 
   // storage
-  messages = new Set<string>();
+  messages = new Map<string, string>();
 
   // websocket
   private _ws: WS | undefined;
@@ -90,13 +90,13 @@ export class Mailbox implements Subscriber {
   }
 
   // sending
-  send(message: string): void {
-    if (this._ws?.readyState == 1) {
-      this._ws.send(message);
-      this.dateLastUsed = new Date();
-    } else {
-      this.messages.add(message);
-    }
+  send(message: string, _?: boolean, uuid?: string): void {
+    this._ws?.send(message);
+
+    console.log(this.id, uuid, message, "sending");
+
+    if (!uuid) return;
+    this.messages.set(uuid, message);
   }
 
   sendUnreadMessages(): void {
@@ -106,6 +106,12 @@ export class Mailbox implements Subscriber {
       this._ws.send(message);
       this.messages.delete(message);
     });
+  }
+
+  checkMessageReceivedConfirmation(uuid: string): void {
+    if (!this.messages.has(uuid)) return;
+    this.dateLastUsed = new Date();
+    this.messages.delete(uuid);
   }
 }
 

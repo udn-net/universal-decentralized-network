@@ -49,7 +49,7 @@ export function writeStatNumber(label: string, value: number): void {
 }
 
 // logging
-export function writeError(message: string): void {
+export function writeError(message: any): void {
   console.log(Colors.bold.red(message));
   writeToLogFile(message);
 }

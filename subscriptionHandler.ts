@@ -93,8 +93,6 @@ export class Mailbox implements Subscriber {
   send(message: string, _?: boolean, uuid?: string): void {
     this._ws?.send(message);
 
-    console.log(this.id, uuid, message, "sending");
-
     if (!uuid) return;
     this.messages.set(uuid, message);
   }

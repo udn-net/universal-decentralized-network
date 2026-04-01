@@ -119,7 +119,6 @@ async function main() {
 
     // CLI
     function updateCLI() {
-        return;
         console.clear();
 
         console.log(Colors.bold.bgWhite("UNIVERSAL DECENTRALIZED NETWORK"));
@@ -146,7 +145,7 @@ async function main() {
         }
 
         removeExpiredMailboxes();
-    }, 2000);
+    }, 5000);
 
     // FINISH
     writeSuccess(`###\nstarted up ${new Date().toLocaleString()}`);

@@ -100,6 +100,12 @@ export function connectServers(config: typeof defaultConfig): void {
 }
 
 export function reconnectServers(config: typeof defaultConfig): void {
+    config.connectedServers
+        .map(address => address.replace("ws", "http"))
+        .forEach(address => {
+            fetch(address);
+        });
+
     [...serversDisconnected.values()].forEach((address) => {
         connectServer(address, config);
     });

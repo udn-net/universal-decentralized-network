@@ -127,6 +127,5 @@ export function requestMailbox() {
 }
 
 export function deleteMailbox() {
-    console.log("test");
     UDN.deleteMailbox(mailboxId.value);
 }

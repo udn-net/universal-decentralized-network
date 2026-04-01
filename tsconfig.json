@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": false,
+        "jsx": "react",
+        "jsxFactory": "React.createElement",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "target": "es2020",
+        "module": "es2022"
+    }
+}

@@ -1,9 +1,12 @@
 {
     "name": "udn",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A websocket-based infrastructure for decentralized networks ",
     "bin": {
         "start": "index.ts"
+    },
+    "scripts": {
+        "build": "esbuild static/src/index.tsx --bundle --outdir=static/dist"
     },
     "repository": {
         "type": "git",

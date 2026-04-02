@@ -13,8 +13,8 @@ import {
     createFileResponse,
     getVersionNumber,
     writeError,
-    writeStatNumber,
-    writeStatString,
+    writeSeparator,
+    writeStat,
     writeSuccess,
 } from "./utility";
 
@@ -121,20 +121,20 @@ async function main() {
     function updateCLI() {
         console.clear();
 
-        console.log(Colors.bold.bgWhite("UNIVERSAL DECENTRALIZED NETWORK"));
+        console.log(Colors.bold.bgBlue("UNIVERSAL DECENTRALIZED NETWORK"));
         console.log(
             Colors.yellow("relevant output is available in the 'logs' file"),
         );
-        console.log();
+        writeSeparator();
 
-        console.log(new Date().toLocaleString());
-        console.log();
+        console.log(new Date().toISOString());
+        writeSeparator();
 
-        getServerStats().forEach((entry) => writeStatString(...entry));
-        console.log();
+        getServerStats().forEach((entry) => writeStat(...entry));
+        writeSeparator();
 
-        getWebSocketStats().forEach((entry) => writeStatNumber(...entry));
-        console.log();
+        getWebSocketStats().forEach((entry) => writeStat(...entry));
+        writeSeparator();
     }
 
     // LOOP
@@ -148,7 +148,7 @@ async function main() {
     }, 5000);
 
     // FINISH
-    writeSuccess(`###\nstarted up ${new Date().toLocaleString()}`);
+    writeSuccess(`###\nstarted up ${new Date().toISOString()}`);
 }
 
 main();

@@ -51,10 +51,6 @@ export const serversConnectedAsClient = new Set<WS>();
 export const serversConnected = new Set<WebSocket>();
 export const serversDisconnected = new Set<string>();
 
-export function getServerCount() {
-    return serversConnected.size + serversConnectedAsClient.size;
-}
-
 export function trackConnection(ws: WS) {
     clientsConnected.add(ws);
 }
@@ -82,13 +78,18 @@ export function forgetSubscription(
 }
 
 // AUDIT
-export function getWebSocketStats(): [string, number][] {
+export function getWebSocketStats(): [string, string|number][] {
+    function listString<T>(list: Set<T>|Map<string, T>, map: (x: T) => string): string {
+        if (list.size == 0) return "<none>";
+        return [...list.values()].map(map).join("\n");
+    }
+    
     return [
         ["channels", subscriptionMap.subscribersPerChannel.size],
         ["clients connected", clientsConnected.size],
-        ["mailboxes", mailboxes.size],
-        ["servers connected", getServerCount()],
-        ["servers disconnected", serversDisconnected.size],
+        ["mailboxes", listString(mailboxes, x => x.id)],
+        ["servers connected", listString(serversConnected, x => x.url)],
+        ["servers disconnected", listString(serversDisconnected, x => x)],
     ];
 }
 

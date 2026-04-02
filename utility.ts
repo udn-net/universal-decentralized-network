@@ -36,16 +36,14 @@ async function writeToLogFile(message: string): Promise<void> {
 }
 
 // stats
-export function writeStatString(label: string, value: string): void {
+export function writeStat(label: string, value: string | number): void {
     console.log(
-        `${label.padEnd(STAT_INDENT, " ")} ${Colors.bold.green(value)}`,
+        `${Colors.bold.green(label.padEnd(STAT_INDENT, " "))}\n${value.toString()}\n`
     );
 }
 
-export function writeStatNumber(label: string, value: number): void {
-    console.log(
-        `${label.padEnd(STAT_INDENT, " ")} ${Colors.bold.blue(value.toString())}`,
-    );
+export function writeSeparator(): void {
+    console.log(Colors.gray("-----") + "\n")
 }
 
 // logging

@@ -36,10 +36,15 @@ export async function updateStats() {
     data.forEach((item) => {
         const tile = (
             <div class="tile">
-                <span class="secondary flex width-100">
-                    {item[0].toString()}
-                </span>
-                <b>{item[1].toString()}</b>
+                <div class="flex-column align-start">
+                    <span class="secondary flex width-100">
+                        {item[0].toString()}
+                    </span>
+                    {...item[1]
+                        .toString()
+                        .split("\n")
+                        .map((string) => <b>{string}</b>)}
+                </div>
             </div>
         );
         html += tile.outerHTML;

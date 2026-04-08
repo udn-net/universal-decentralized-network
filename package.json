@@ -1,6 +1,6 @@
 {
     "name": "udn",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "A websocket-based infrastructure for decentralized networks ",
     "bin": {
         "start": "index.ts"

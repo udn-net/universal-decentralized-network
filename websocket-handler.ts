@@ -78,12 +78,12 @@ export function forgetSubscription(
 }
 
 // AUDIT
-export function getWebSocketStats(): [string, string|number][] {
-    function listString<T>(list: Set<T>|Map<string, T>, map: (x: T) => string): string {
+export function getWebSocketStats(): [string, string | number][] {
+    function listString<T>(list: Set<T> | Map<string, T>, map: (x: T) => string): string {
         if (list.size == 0) return "<none>";
         return [...list.values()].map(map).join("\n");
     }
-    
+
     return [
         ["channels", subscriptionMap.subscribersPerChannel.size],
         ["clients connected", clientsConnected.size],
@@ -103,8 +103,10 @@ export function connectServers(config: typeof defaultConfig): void {
 export function reconnectServers(config: typeof defaultConfig): void {
     config.connectedServers
         .map(address => address.replace("ws", "http"))
-        .forEach(address => {
-            fetch(address);
+        .forEach(async address => {
+            try {
+                await fetch(address);
+            } catch (error) { writeError(`failed to ping server at "${address}": ${error}`) }
         });
 
     [...serversDisconnected.values()].forEach((address) => {
